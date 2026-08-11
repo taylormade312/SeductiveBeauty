@@ -1,4 +1,6 @@
 let currentUser = null;
+let pendingMedia = [];
+let bookmarkedPostIds = new Set(JSON.parse(localStorage.getItem('sb_local_bookmarks') || '[]'));
 const creators = [
   {id:'amaya',name:'Amaya Luxe',handle:'@amayaluxe',price:14.99,cat:'Glamour',initials:'AL',a:'#8d2d9b',b:'#23122f',bio:'Editorial glamour, private drops and behind-the-scenes sets.',subs:'24.8K',likes:'412K'},
   {id:'nia',name:'Nia Rose',handle:'@niarose',price:9.99,cat:'Lifestyle',initials:'NR',a:'#65227c',b:'#15112c',bio:'Luxury lifestyle, travel diaries and subscriber-only moments.',subs:'18.1K',likes:'326K'},
@@ -37,12 +39,32 @@ const toHandle = value => String(value||'creator').toLowerCase().replace(/[^a-z0
 
 async function getUserProfile(user){
   if(!user) return null;
-  const {data:profile}=await sbClient.from('profiles').select('*').eq('id',user.id).maybeSingle();
-  let role=profile?.role||'member';
+  const {data:profile,error:profileError}=await sbClient.from('profiles').select('id,username,display_name,avatar_path,bio,role,is_18_verified,is_suspended,created_at,updated_at').eq('id',user.id).maybeSingle();
+  if(profileError) console.warn(profileError.message);
+  let {data:creatorProfile}=await sbClient.from('creator_profiles').select('status,monthly_price,category').eq('user_id',user.id).maybeSingle();
   const requested=user.user_metadata?.requested_role;
-  if(requested==='creator' && role!=='creator'){
-    const {error}=await sbClient.from('creator_profiles').upsert({user_id:user.id,status:'pending'},{onConflict:'user_id'});
-    if(!error) role='creator';
+  if(requested==='creator' && !creatorProfile){
+    const {error}=await sbClient.from('creator_profiles').insert({user_id:user.id});
+    if(!error){
+      const q=await sbClient.from('creator_profiles').select('status,monthly_price,category').eq('user_id',user.id).maybeSingle();
+      creatorProfile=q.data||null;
+    }
   }
-  return {id:user.id,email:user.email,name:profile?.display_name||user.user_metadata?.display_name||user.email?.split('@')[0]||'Member',handle:profile?.username?`@${profile.username}`:`@${toHandle(profile?.display_name||user.email?.split('@')[0])}`,role,verified:!!profile?.is_18_verified};
+  const role=profile?.role==='admin'?'admin':creatorProfile?'creator':'member';
+  if(user.user_metadata?.adult_attested){
+    const docs=['terms','privacy','community_guidelines','18_plus'];
+    try{
+      await sbClient.from('legal_acceptances').upsert(docs.map(document_type=>({
+        user_id:user.id,document_type,document_version:'2026-08-11'
+      })),{onConflict:'user_id,document_type,document_version'});
+    }catch(e){}
+  }
+  return {
+    id:user.id,email:user.email,
+    name:profile?.display_name||user.user_metadata?.display_name||user.email?.split('@')[0]||'Member',
+    handle:profile?.username?`@${profile.username}`:`@${toHandle(profile?.display_name||user.email?.split('@')[0])}`,
+    role,verified:!!profile?.is_18_verified,creatorStatus:creatorProfile?.status||null,
+    monthlyPrice:Number(creatorProfile?.monthly_price||0)
+  };
 }
+
