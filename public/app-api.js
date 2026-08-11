@@ -83,9 +83,23 @@ async function api(path, options={}){
     return {creators:mapped.length?mapped:null};
   }
   if(path==='/api/posts' && method==='GET'){
-    const {data,error}=await sbClient.from('posts').select('id,creator_id,caption,access,ppv_price,published_at').eq('is_published',true).order('published_at',{ascending:false}).limit(50);
+    const {data,error}=await sbClient.from('posts').select('id,creator_id,caption,access,ppv_price,published_at,post_media(storage_path,media_type)').eq('is_published',true).order('published_at',{ascending:false}).limit(50);
     if(error) throw new Error(error.message);
-    const mapped=(data||[]).map((row,i)=>({id:row.id,creator:row.creator_id,text:row.caption||'',visibility:row.access,locked:row.access==='ppv',price:Number(row.ppv_price||0),a:['#4e1d62','#321557','#5d2c68','#632738'][i%4],b:'#130c1d',likes:0,comments:0}));
+    const mapped=await Promise.all((data||[]).map(async(row,i)=>{
+      const media=[];
+      for(const m of (row.post_media||[])){
+        let url=null;
+        if(row.access==='free'){
+          url=sbClient.storage.from('creator-public').getPublicUrl(m.storage_path).data.publicUrl;
+        }else{
+          const signed=await sbClient.storage.from('creator-private').createSignedUrl(m.storage_path,3600);
+          if(!signed.error) url=signed.data.signedUrl;
+        }
+        if(url) media.push({url,type:m.media_type});
+      }
+      const entitled=row.access==='free'||media.length>0;
+      return {id:row.id,creator:row.creator_id,text:row.caption||'',visibility:row.access,locked:!entitled,price:Number(row.ppv_price||0),a:['#4e1d62','#321557','#5d2c68','#632738'][i%4],b:'#130c1d',likes:0,comments:0,media};
+    }));
     return {posts:mapped.length?mapped:null};
   }
   if(path==='/api/posts' && method==='POST'){
