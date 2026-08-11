@@ -1,0 +1,13 @@
+{
+  "name": "seductive-beauty",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Seductive Beauty luxury creator platform on Cloudflare Workers + Supabase",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "preview": "wrangler versions upload"
+  },
+  "devDependencies": {
+    "wrangler": "4.102.0"
+  }
+}
