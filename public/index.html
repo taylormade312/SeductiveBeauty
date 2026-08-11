@@ -8,10 +8,17 @@
   <meta name="description" content="Seductive Beauty — a luxury creator subscription experience." />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="styles-1.css" />
-<link rel="stylesheet" href="styles-2.css" />
-<link rel="stylesheet" href="styles-3.css" />
-<link rel="stylesheet" href="styles-4.css" />
-<link rel="stylesheet" href="styles-5.css" />
+  <link rel="stylesheet" href="styles-2.css" />
+  <link rel="stylesheet" href="styles-3.css" />
+  <link rel="stylesheet" href="styles-4.css" />
+  <link rel="stylesheet" href="styles-5.css" />
+  <style>
+    .real-media-grid{display:grid;gap:10px;width:100%}
+    .real-media-grid img,.real-media-grid video{display:block;width:100%;max-height:720px;object-fit:contain;border-radius:14px;background:#08050b}
+    .real-media-grid audio{width:calc(100% - 28px);margin:18px 14px}
+    .checkbox-label{display:flex!important;gap:10px;align-items:flex-start;font-size:.86rem;line-height:1.35}
+    .checkbox-label input{width:auto!important;margin-top:3px}
+  </style>
 </head>
 <body>
   <div id="ageGate" class="age-gate">
@@ -138,22 +145,22 @@
       <section id="view-profile" class="view">
         <div class="profile-hero">
           <div class="profile-cover profile-cover-user"></div>
-          <div class="profile-header-card glass-soft"><div class="avatar xl">JT</div><div><h1>Joshua</h1><p>@jtaylor</p><div class="member-chip">Member since 2026</div></div><button class="btn outline">Edit profile</button></div>
+          <div class="profile-header-card glass-soft"><div class="avatar xl">JT</div><div><h1>Joshua</h1><p>@jtaylor</p><div class="member-chip">Member since 2026</div></div><button id="editProfileBtn" class="btn outline">Edit profile</button></div>
         </div>
         <div class="profile-grid">
-          <div class="settings-card glass-soft"><h3>Account</h3><button>Subscriptions <span>6 active ›</span></button><button>Payment methods <span>›</span></button><button>Bookmarks <span>14 saved ›</span></button><button>Privacy & safety <span>›</span></button><button>Blocked accounts <span>›</span></button></div>
-          <div class="settings-card glass-soft"><h3>Creator tools</h3><button data-view="studio">Creator Studio <span>›</span></button><button>Verification <span class="verified-text">Verified ✓</span></button><button>Content settings <span>›</span></button><button>Payout settings <span>›</span></button></div>
+          <div class="settings-card glass-soft"><h3>Account</h3><button>Subscriptions <span>Live after payments ›</span></button><button class="payment-method-action">Payment methods <span>Connect processor ›</span></button><button data-view="bookmarks">Bookmarks <span>View saved ›</span></button><button data-view="legal">Privacy & safety <span>›</span></button><button>Blocked accounts <span>Manage in safety center ›</span></button></div>
+          <div class="settings-card glass-soft"><h3>Creator tools</h3><button data-view="studio">Creator Studio <span>›</span></button><button id="verificationBtn">Verification <span id="verificationStatus" class="verified-text">Not verified</span></button><button data-view="create">Content settings <span>›</span></button><button class="payout-action">Payout settings <span>Requires processor + KYC ›</span></button></div>
         </div>
       </section>
 
       <section id="view-studio" class="view">
-        <div class="studio-heading"><div><span class="eyebrow">CREATOR STUDIO</span><h1>Good evening, Joshua.</h1><p>Here’s how your Seductive Beauty page is performing.</p></div><button class="btn primary" data-view="create">＋ Create post</button></div>
-        <div class="metric-grid"><div class="metric-card"><span>Available balance</span><strong>$4,860.24</strong><small>+18.2% this month</small></div><div class="metric-card"><span>Subscribers</span><strong>1,284</strong><small>+94 this month</small></div><div class="metric-card"><span>PPV revenue</span><strong>$2,418</strong><small>42% of monthly revenue</small></div><div class="metric-card"><span>Profile views</span><strong>18.6K</strong><small>+24.7% this month</small></div></div>
+        <div class="studio-heading"><div><span class="eyebrow">CREATOR STUDIO</span><h1 id="studioGreeting">Creator Studio</h1><p>Real activity from your Seductive Beauty account.</p></div><button class="btn primary" data-view="create">＋ Create post</button></div>
+        <div class="metric-grid"><div class="metric-card"><span>Available balance</span><strong id="metricBalance">$0.00</strong><small>Activates with approved payments</small></div><div class="metric-card"><span>Subscribers</span><strong id="metricSubscribers">0</strong><small>Active subscriptions</small></div><div class="metric-card"><span>PPV revenue</span><strong id="metricPPV">$0.00</strong><small>Completed PPV revenue</small></div><div class="metric-card"><span>Published posts</span><strong id="metricPosts">0</strong><small>Saved in Supabase</small></div></div>
         <div class="studio-grid">
           <div class="chart-card glass-soft"><div class="section-head"><h3>Earnings overview</h3><select><option>Last 30 days</option><option>Last 90 days</option></select></div><div class="chart-bars" id="earningsChart"></div><div class="chart-labels"><span>Jul 12</span><span>Jul 19</span><span>Jul 26</span><span>Aug 2</span><span>Aug 10</span></div></div>
-          <div class="rail-card glass-soft"><h3>Quick actions</h3><button class="quick-action" data-view="create"><span>＋</span><div><b>Create a post</b><small>Free, subscriber or PPV</small></div></button><button class="quick-action"><span>✉</span><div><b>Mass message</b><small>Send to subscribers</small></div></button><button class="quick-action"><span>%</span><div><b>Create promotion</b><small>Discount subscription price</small></div></button><button class="quick-action"><span>↗</span><div><b>Request payout</b><small>$4,860.24 available</small></div></button></div>
+          <div class="rail-card glass-soft"><h3>Quick actions</h3><button class="quick-action" data-view="create"><span>＋</span><div><b>Create a post</b><small>Free, subscriber or PPV</small></div></button><button class="quick-action feature-pending-action"><span>✉</span><div><b>Mass message</b><small>Available once subscribers are active</small></div></button><button class="quick-action feature-pending-action"><span>%</span><div><b>Create promotion</b><small>Available with paid subscriptions</small></div></button><button class="quick-action payout-action"><span>↗</span><div><b>Request payout</b><small>Requires processor + creator KYC</small></div></button></div>
         </div>
-        <div class="studio-lower"><div class="table-card glass-soft"><div class="section-head"><h3>Recent transactions</h3><button>View all</button></div><table><thead><tr><th>Member</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td>@mike_v</td><td>Subscription</td><td>$14.99</td><td><span class="status success">Completed</span></td></tr><tr><td>@beautifulmind</td><td>PPV unlock</td><td>$24.00</td><td><span class="status success">Completed</span></td></tr><tr><td>@alex_88</td><td>Tip</td><td>$50.00</td><td><span class="status success">Completed</span></td></tr><tr><td>@darius_tx</td><td>Subscription</td><td>$14.99</td><td><span class="status pending">Pending</span></td></tr></tbody></table></div></div>
+        <div class="studio-lower"><div class="table-card glass-soft"><div class="section-head"><h3>Recent transactions</h3><button>View all</button></div><table><thead><tr><th>Member</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead><tbody id="studioTransactions"><tr><td colspan="4" class="muted">No completed transactions yet. Payment processing is not connected.</td></tr></tbody></table></div></div>
       </section>
 
       <section id="view-create" class="view">
@@ -161,7 +168,7 @@
         <div class="composer glass-soft">
           <div class="composer-author"><div class="avatar">JT</div><div><b>Joshua</b><small>@jtaylor</small></div></div>
           <textarea id="postText" placeholder="Share something with your subscribers..."></textarea>
-          <div class="upload-zone"><div class="upload-icon">＋</div><b>Add photos or videos</b><span>Drag & drop or choose from your media vault</span><button class="btn ghost">Choose media</button></div>
+          <div class="upload-zone"><div class="upload-icon">＋</div><b>Add photos, video or audio</b><span id="mediaSelection">No media selected</span><button id="chooseMediaBtn" class="btn ghost" type="button">Choose media</button><input id="mediaInput" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,audio/mpeg,audio/mp4" multiple hidden></div>
           <div class="composer-settings"><label>Who can view?<select id="visibilitySelect"><option>Subscribers</option><option>Everyone</option><option>Pay-per-view</option></select></label><label id="ppvPriceWrap" class="hidden">PPV price<input id="ppvPrice" type="number" value="15" min="1" /></label><label>Schedule<select><option>Post now</option><option>Schedule for later</option></select></label></div>
           <div class="composer-footer"><span>ⓘ You can edit or archive this post later.</span><button id="publishBtn" class="btn primary">Publish post</button></div>
         </div>
@@ -171,7 +178,7 @@
         <div id="creatorProfileMount"></div>
       </section>
       <section id="view-legal" class="view">
-        <div class="page-heading"><div><span class="eyebrow">TRUST & SAFETY</span><h1>Platform policies</h1><p>Launch-draft language for legal review before accepting real users or payments.</p></div></div>
+        <div class="page-heading"><div><span class="eyebrow">TRUST & SAFETY</span><h1>Platform policies</h1><p>Platform safety and policy summary. Formal legal review is still required before enabling paid transactions.</p></div></div>
         <div class="legal-grid">
           <article class="legal-card glass-soft"><h2>Terms of Service</h2><p>Users must be 18+, provide accurate account information, respect creator rights, and comply with applicable law. Monetized creator accounts require identity and age verification. This draft must be reviewed by qualified counsel before launch.</p></article>
           <article class="legal-card glass-soft"><h2>Privacy</h2><p>Seductive Beauty should minimize data collection, disclose processors, secure account and billing data, provide deletion/access workflows, and publish retention practices. Payment data should be handled by an approved processor rather than stored directly.</p></article>
@@ -202,13 +209,15 @@
         <label>Email<input id="loginEmail" type="email" placeholder="you@example.com" value="" required></label>
         <label>Password<input id="loginPassword" type="password" placeholder="Your password" value="" required></label>
         <button class="btn primary wide" type="submit">Sign in</button>
-        <small>Sign in to your Seductive Beauty account. Payment actions remain in protected demo mode until the approved payment processor is connected.</small>
+        <button id="forgotPassword" class="btn ghost wide" type="button">Forgot password?</button>
+        <small>Sign in to your Seductive Beauty account. Paid unlocks remain disabled until the approved payment processor is connected.</small>
       </form>
       <form id="signupForm" class="auth-form hidden">
         <label>Display name<input id="signupName" required placeholder="Your name"></label>
         <label>Email<input id="signupEmail" type="email" required placeholder="you@example.com"></label>
         <label>Password<input id="signupPassword" type="password" minlength="8" required placeholder="8+ characters"></label>
         <label>Account type<select id="signupRole"><option value="member">Member</option><option value="creator">Creator</option></select></label>
+        <label class="checkbox-label"><input id="signup18" type="checkbox" required> I confirm I am 18 or older and agree to the Terms, Privacy Policy and Community Guidelines.</label>
         <button class="btn primary wide" type="submit">Create account</button>
       </form>
       <div id="authError" class="auth-error"></div>
@@ -220,5 +229,6 @@
   <script src="app-data.js"></script>
   <script src="app-api.js"></script>
   <script src="app-ui.js"></script>
+  <script src="finish.js"></script>
 </body>
 </html>
