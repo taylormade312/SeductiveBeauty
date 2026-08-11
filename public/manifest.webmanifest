@@ -1,0 +1,10 @@
+{
+  "name": "Seductive Beauty",
+  "short_name": "Seductive Beauty",
+  "description": "Exclusive Content. Unfiltered Beauty.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09060d",
+  "theme_color": "#0b0610",
+  "icons": []
+}
