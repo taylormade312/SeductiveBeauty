@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0610" />
+  <title>Seductive Beauty — Exclusive Content. Unfiltered Beauty.</title>
+  <meta name="description" content="Seductive Beauty — a luxury creator subscription experience." />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="stylesheet" href="styles-1.css" />
+<link rel="stylesheet" href="styles-2.css" />
+<link rel="stylesheet" href="styles-3.css" />
+<link rel="stylesheet" href="styles-4.css" />
+<link rel="stylesheet" href="styles-5.css" />
+</head>
+<body>
+  <div id="ageGate" class="age-gate">
+    <div class="age-card glass">
+      <div class="brand-lockup large">
+        <div class="sb-monogram"><span>S</span><span>B</span><i>♛</i></div>
+        <div class="wordmark"><strong>SEDUCTIVE</strong><em>Beauty</em></div>
+      </div>
+      <p class="tagline">EXCLUSIVE CONTENT. UNFILTERED BEAUTY.</p>
+      <h1>Enter a more exclusive world.</h1>
+      <p class="muted">Seductive Beauty is intended for adults 18 and older. By entering, you confirm you are at least 18 years old.</p>
+      <button id="enterBtn" class="btn primary wide">I’m 18 or older</button>
+      <button class="btn ghost wide" onclick="document.body.innerHTML='<div class=\'exit-screen\'><h1>Thanks for visiting.</h1></div>'">Exit</button>
+      <small>Age verification and creator identity verification are required before monetized access.</small>
+    </div>
+  </div>
+
+  <div class="site-shell">
+    <header class="topbar">
+      <button class="brand-mini" data-view="home" aria-label="Seductive Beauty home">
+        <div class="mini-monogram">SB</div>
+        <div class="mini-wordmark"><b>Seductive</b><span>Beauty</span></div>
+      </button>
+      <div class="top-search">
+        <span>⌕</span><input id="globalSearch" placeholder="Search creators" />
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" data-view="notifications">♡<span class="badge">3</span></button>
+        <button id="authBtn" class="btn auth-btn">Sign in</button>
+        <button class="avatar small" data-view="profile">JT</button>
+      </div>
+    </header>
+
+    <aside class="sidebar glass-soft">
+      <button class="brand-lockup sidebar-brand" data-view="home">
+        <div class="sb-monogram small"><span>S</span><span>B</span><i>♛</i></div>
+        <div class="wordmark small"><strong>SEDUCTIVE</strong><em>Beauty</em></div>
+      </button>
+      <nav class="side-nav">
+        <button class="nav-item active" data-view="home"><span>⌂</span>Home</button>
+        <button class="nav-item" data-view="discover"><span>◇</span>Discover</button>
+        <button class="nav-item creator-only" data-view="create"><span>＋</span>Create</button>
+        <button class="nav-item" data-view="messages"><span>✉</span>Messages<span class="pill-count">4</span></button>
+        <button class="nav-item" data-view="notifications"><span>♡</span>Notifications</button>
+        <button class="nav-item" data-view="bookmarks"><span>▱</span>Bookmarks</button>
+        <button class="nav-item" data-view="profile"><span>◉</span>Profile</button>
+        <button class="nav-item creator-only studio-link" data-view="studio"><span>✦</span>Creator Studio</button>
+      </nav>
+      <div class="creator-switch">
+        <span>Mode</span>
+        <button id="modeToggle" class="mode-toggle"><b>Creator</b><small>Switch to member</small></button>
+      </div>
+      <div class="sidebar-foot">
+        <span>© 2026 Seductive Beauty</span><span><button class="footer-link" data-view="legal">Privacy · Terms · Safety</button></span>
+      </div>
+    </aside>
+
+    <main id="main" class="main-content">
+      <section id="view-home" class="view active-view">
+        <div class="hero luxury-panel">
+          <div class="hero-copy">
+            <span class="eyebrow">WELCOME TO SEDUCTIVE BEAUTY</span>
+            <h1>Exclusive Content.<br><span>Unfiltered Beauty.</span></h1>
+            <p>Discover creators, unlock private drops, subscribe to exclusive feeds, and connect more closely with the people you follow.</p>
+            <div class="hero-actions"><button class="btn primary" data-view="discover">Explore Creators</button><button class="btn outline" data-view="studio">Become a Creator</button></div>
+            <div class="trust-row"><span>✓ 18+ verified creators</span><span>✓ Private membership controls</span><span>✓ Secure billing-ready architecture</span></div>
+          </div>
+          <div class="hero-art">
+            <div class="chrome-logo-card">
+              <div class="sb-hero">SB<i>♛</i></div>
+              <div class="hero-wordmark"><strong>SEDUCTIVE</strong><em>Beauty</em></div>
+              <p>PRIVATE • PREMIUM • PERSONAL</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="stories-section">
+          <div class="section-head"><h2>Creators you follow</h2><button data-view="discover">View all</button></div>
+          <div id="stories" class="stories"></div>
+        </section>
+
+        <div class="feed-layout">
+          <section>
+            <div class="feed-tabs"><button class="active">For You</button><button>Following</button><button>New Drops</button></div>
+            <div id="feed" class="feed"></div>
+          </section>
+          <aside class="right-rail">
+            <div class="rail-card glass-soft">
+              <div class="section-head"><h3>Trending creators</h3><button data-view="discover">See all</button></div>
+              <div id="trendingList"></div>
+            </div>
+            <div class="rail-card offer-card">
+              <span class="eyebrow">CREATOR SPOTLIGHT</span><h3>Turn your following into a membership.</h3><p>Set your price, schedule drops, offer PPV content and view subscriber analytics.</p><button class="btn outline wide" data-view="studio">Open Creator Studio</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-discover" class="view">
+        <div class="page-heading"><div><span class="eyebrow">DISCOVER</span><h1>Find your next favorite creator</h1><p>Explore premium creators by category, popularity and subscription price.</p></div></div>
+        <div class="discover-toolbar glass-soft"><div class="search-lg"><span>⌕</span><input id="discoverSearch" placeholder="Search by name or @username" /></div><select id="priceFilter"><option value="all">All prices</option><option value="free">Free</option><option value="under10">Under $10</option><option value="premium">$10+</option></select></div>
+        <div id="categoryChips" class="chips"></div>
+        <div id="creatorGrid" class="creator-grid"></div>
+      </section>
+
+      <section id="view-messages" class="view">
+        <div class="page-heading"><div><span class="eyebrow">MESSAGES</span><h1>Your conversations</h1></div></div>
+        <div class="messages-shell glass-soft">
+          <div class="inbox-pane"><div class="inbox-search"><span>⌕</span><input placeholder="Search messages" /></div><div id="inboxList"></div></div>
+          <div class="conversation-pane" id="conversationPane"></div>
+        </div>
+      </section>
+
+      <section id="view-notifications" class="view">
+        <div class="page-heading"><div><span class="eyebrow">NOTIFICATIONS</span><h1>What’s new</h1></div><button class="btn ghost">Mark all read</button></div>
+        <div id="notificationList" class="notification-list"></div>
+      </section>
+
+      <section id="view-bookmarks" class="view">
+        <div class="page-heading"><div><span class="eyebrow">BOOKMARKS</span><h1>Saved for later</h1><p>Your private collection of saved posts.</p></div></div>
+        <div id="bookmarkGrid" class="bookmark-grid"></div>
+      </section>
+
+      <section id="view-profile" class="view">
+        <div class="profile-hero">
+          <div class="profile-cover profile-cover-user"></div>
+          <div class="profile-header-card glass-soft"><div class="avatar xl">JT</div><div><h1>Joshua</h1><p>@jtaylor</p><div class="member-chip">Member since 2026</div></div><button class="btn outline">Edit profile</button></div>
+        </div>
+        <div class="profile-grid">
+          <div class="settings-card glass-soft"><h3>Account</h3><button>Subscriptions <span>6 active ›</span></button><button>Payment methods <span>›</span></button><button>Bookmarks <span>14 saved ›</span></button><button>Privacy & safety <span>›</span></button><button>Blocked accounts <span>›</span></button></div>
+          <div class="settings-card glass-soft"><h3>Creator tools</h3><button data-view="studio">Creator Studio <span>›</span></button><button>Verification <span class="verified-text">Verified ✓</span></button><button>Content settings <span>›</span></button><button>Payout settings <span>›</span></button></div>
+        </div>
+      </section>
+
+      <section id="view-studio" class="view">
+        <div class="studio-heading"><div><span class="eyebrow">CREATOR STUDIO</span><h1>Good evening, Joshua.</h1><p>Here’s how your Seductive Beauty page is performing.</p></div><button class="btn primary" data-view="create">＋ Create post</button></div>
+        <div class="metric-grid"><div class="metric-card"><span>Available balance</span><strong>$4,860.24</strong><small>+18.2% this month</small></div><div class="metric-card"><span>Subscribers</span><strong>1,284</strong><small>+94 this month</small></div><div class="metric-card"><span>PPV revenue</span><strong>$2,418</strong><small>42% of monthly revenue</small></div><div class="metric-card"><span>Profile views</span><strong>18.6K</strong><small>+24.7% this month</small></div></div>
+        <div class="studio-grid">
+          <div class="chart-card glass-soft"><div class="section-head"><h3>Earnings overview</h3><select><option>Last 30 days</option><option>Last 90 days</option></select></div><div class="chart-bars" id="earningsChart"></div><div class="chart-labels"><span>Jul 12</span><span>Jul 19</span><span>Jul 26</span><span>Aug 2</span><span>Aug 10</span></div></div>
+          <div class="rail-card glass-soft"><h3>Quick actions</h3><button class="quick-action" data-view="create"><span>＋</span><div><b>Create a post</b><small>Free, subscriber or PPV</small></div></button><button class="quick-action"><span>✉</span><div><b>Mass message</b><small>Send to subscribers</small></div></button><button class="quick-action"><span>%</span><div><b>Create promotion</b><small>Discount subscription price</small></div></button><button class="quick-action"><span>↗</span><div><b>Request payout</b><small>$4,860.24 available</small></div></button></div>
+        </div>
+        <div class="studio-lower"><div class="table-card glass-soft"><div class="section-head"><h3>Recent transactions</h3><button>View all</button></div><table><thead><tr><th>Member</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td>@mike_v</td><td>Subscription</td><td>$14.99</td><td><span class="status success">Completed</span></td></tr><tr><td>@beautifulmind</td><td>PPV unlock</td><td>$24.00</td><td><span class="status success">Completed</span></td></tr><tr><td>@alex_88</td><td>Tip</td><td>$50.00</td><td><span class="status success">Completed</span></td></tr><tr><td>@darius_tx</td><td>Subscription</td><td>$14.99</td><td><span class="status pending">Pending</span></td></tr></tbody></table></div></div>
+      </section>
+
+      <section id="view-create" class="view">
+        <div class="page-heading"><div><span class="eyebrow">NEW POST</span><h1>Create something exclusive</h1></div></div>
+        <div class="composer glass-soft">
+          <div class="composer-author"><div class="avatar">JT</div><div><b>Joshua</b><small>@jtaylor</small></div></div>
+          <textarea id="postText" placeholder="Share something with your subscribers..."></textarea>
+          <div class="upload-zone"><div class="upload-icon">＋</div><b>Add photos or videos</b><span>Drag & drop or choose from your media vault</span><button class="btn ghost">Choose media</button></div>
+          <div class="composer-settings"><label>Who can view?<select id="visibilitySelect"><option>Subscribers</option><option>Everyone</option><option>Pay-per-view</option></select></label><label id="ppvPriceWrap" class="hidden">PPV price<input id="ppvPrice" type="number" value="15" min="1" /></label><label>Schedule<select><option>Post now</option><option>Schedule for later</option></select></label></div>
+          <div class="composer-footer"><span>ⓘ You can edit or archive this post later.</span><button id="publishBtn" class="btn primary">Publish post</button></div>
+        </div>
+      </section>
+
+      <section id="view-creator" class="view">
+        <div id="creatorProfileMount"></div>
+      </section>
+      <section id="view-legal" class="view">
+        <div class="page-heading"><div><span class="eyebrow">TRUST & SAFETY</span><h1>Platform policies</h1><p>Launch-draft language for legal review before accepting real users or payments.</p></div></div>
+        <div class="legal-grid">
+          <article class="legal-card glass-soft"><h2>Terms of Service</h2><p>Users must be 18+, provide accurate account information, respect creator rights, and comply with applicable law. Monetized creator accounts require identity and age verification. This draft must be reviewed by qualified counsel before launch.</p></article>
+          <article class="legal-card glass-soft"><h2>Privacy</h2><p>Seductive Beauty should minimize data collection, disclose processors, secure account and billing data, provide deletion/access workflows, and publish retention practices. Payment data should be handled by an approved processor rather than stored directly.</p></article>
+          <article class="legal-card glass-soft"><h2>Community Guidelines</h2><p>No minors, non-consensual content, trafficking, exploitation, impersonation, doxxing, threats, illegal services, or prohibited material. Reporting, blocking, rapid review, evidence preservation, and law-enforcement escalation procedures are required.</p></article>
+          <article class="legal-card glass-soft"><h2>Consent & Creator Safety</h2><p>Creators must confirm ownership, participant consent, age eligibility, and recordkeeping for every upload. A production launch needs robust KYC, age verification, moderation, hash-matching/detection systems, and an abuse-response team.</p></article>
+        </div>
+      </section>
+
+    </main>
+
+    <nav class="bottom-nav glass">
+      <button class="active" data-view="home"><span>⌂</span><small>Home</small></button>
+      <button data-view="discover"><span>◇</span><small>Discover</small></button>
+      <button class="create-fab creator-only" data-view="create"><span>＋</span></button>
+      <button data-view="messages"><span>✉</span><small>Messages</small></button>
+      <button data-view="profile"><span>◉</span><small>Profile</small></button>
+    </nav>
+  </div>
+
+
+  <div id="authModal" class="auth-modal hidden" aria-hidden="true">
+    <div class="auth-dialog glass">
+      <button id="authClose" class="auth-close" aria-label="Close">×</button>
+      <div class="brand-lockup auth-brand"><div class="sb-monogram small"><span>S</span><span>B</span><i>♛</i></div><div class="wordmark small"><strong>SEDUCTIVE</strong><em>Beauty</em></div></div>
+      <p class="tagline">EXCLUSIVE CONTENT. UNFILTERED BEAUTY.</p>
+      <div class="auth-tabs"><button class="active" data-auth-tab="login">Sign in</button><button data-auth-tab="signup">Create account</button></div>
+      <form id="loginForm" class="auth-form">
+        <label>Email<input id="loginEmail" type="email" placeholder="you@example.com" value="" required></label>
+        <label>Password<input id="loginPassword" type="password" placeholder="Your password" value="" required></label>
+        <button class="btn primary wide" type="submit">Sign in</button>
+        <small>Sign in to your Seductive Beauty account. Payment actions remain in protected demo mode until the approved payment processor is connected.</small>
+      </form>
+      <form id="signupForm" class="auth-form hidden">
+        <label>Display name<input id="signupName" required placeholder="Your name"></label>
+        <label>Email<input id="signupEmail" type="email" required placeholder="you@example.com"></label>
+        <label>Password<input id="signupPassword" type="password" minlength="8" required placeholder="8+ characters"></label>
+        <label>Account type<select id="signupRole"><option value="member">Member</option><option value="creator">Creator</option></select></label>
+        <button class="btn primary wide" type="submit">Create account</button>
+      </form>
+      <div id="authError" class="auth-error"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js" onerror="console.error('Supabase client failed to load')"></script>
+  <script src="app-data.js"></script>
+  <script src="app-api.js"></script>
+  <script src="app-ui.js"></script>
+</body>
+</html>
